@@ -38,11 +38,16 @@ color_bold = "\033[1m"
 
 round = 0
 while round < rounds:
+    title = "\n\n%s===> ROUND %d / %d%s" % (color_bold, round, rounds, color_reset)
+    print(title)
+
     game.pre_round()
     view.update()
 
     for actor in actors:
         try:
+            color_player = "\u001b[38;5;%dm" % colors[actor.player.num]
+            print(color_player)
             actor.turn()
         except botplayer.CommError as e:
             if not CONTINUE_ON_ERROR:
@@ -53,11 +58,10 @@ while round < rounds:
         view.update()
     game.post_round()
 
-    s = "%s%sROUND %d / %d\n\n" % (color_reset, color_bold, round, rounds)
-
+    s = ''
     for i in range(len(bots)):
         color_player = "\u001b[38;5;%dm" % colors[i]
-        s += "%s%sP%d (%s):\t %d \n" % (color_reset, color_player, i, game.players[i].name, game.players[i].score)
+        s += "%sP%d (%s):\t %d%s\n" % (color_player, i, game.players[i].name, game.players[i].score, color_reset)
     print(s)
 
     round += 1
