@@ -18,13 +18,14 @@ class GameView(object):
     def __init__(self, game):
         self.game = game
         pygame.init()
-        size = width, height = 640, 480
-        self.screen = pygame.display.set_mode(size)
+        pygame.display.set_caption('AI Contest')
         self.scale = 1
         self.fw = self.game.island.w * CELL * self.scale
         self.fh = self.game.island.h * CELL * self.scale
-        self.arena = pygame.Surface((self.fw, self.fh), 0, self.screen)
         self.nh = self.game.island.h - 1
+        size = width, height = self.fw, self.fh
+        self.screen = pygame.display.set_mode(size)
+        self.arena = pygame.Surface((self.fw, self.fh), 0, self.screen)
 
     def _afill(self, pos, size, c):
         x0, y0 = pos
